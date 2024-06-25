@@ -1,4 +1,6 @@
 const express = require("express");
+const cors = require("cors");
+
 const connectDB = () => require("./config/db");
 
 require("dotenv").config();
@@ -7,6 +9,10 @@ const app = express();
 
 // Connect Database
 connectDB();
+
+app.use(cors({
+    origin: 'https://dev-connector-orpin.vercel.app'
+}))
 
 // Init Middleware: to get access to the request body
 app.use(express.json({ extended: false }));
