@@ -11,7 +11,7 @@ const app = express();
 connectDB();
 
 app.use(cors({
-    origin: 'https://dev-connector-orpin.vercel.app'
+    origin: 'https://dev-frontend-sepia.vercel.app/'
 }))
 
 // Init Middleware: to get access to the request body
