@@ -26,6 +26,8 @@ import Profiles from "./components/profiles/Profiles";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 
+const { localStorage } = window;
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }

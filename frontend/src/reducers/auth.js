@@ -9,6 +9,8 @@ import {
   ACCOUNT_DELETED,
 } from "../actions/types";
 
+const { localStorage } = window;
+
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,

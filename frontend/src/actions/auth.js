@@ -12,6 +12,8 @@ import {
 import setAuthToken from "../utils/setAuthToken";
 import { CLEAR_PROFILE } from "./types";
 
+const { localStorage } = window;
+
 //Load User
 export const loadUser = () => {
   if (localStorage.token) {
