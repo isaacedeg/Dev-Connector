@@ -1,12 +1,12 @@
-const express = require("express");
-const gravatar = require("gravatar");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
-const { check, validationResult } = require("express-validator");
+import express from 'express';
+import { User } from '../../models/User.js';
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { check, validationResult } from "express-validator";
+import gravatar from "gravatar";
+
 const router = express.Router();
 
-const User = require("../../models/User");
 
 // @route    POST api/users
 // @desc     Register user
@@ -88,4 +88,4 @@ router.post(
   }
 );
 
-module.exports = router;
+export default router;

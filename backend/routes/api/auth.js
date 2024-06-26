@@ -1,17 +1,17 @@
-const express = require("express");
-const router = express.Router();
-const auth = require("../../middleware/auth");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const config = require("config");
-const { check, validationResult } = require("express-validator");
+import express from 'express'
+import { isAuthenticated } from "../../middleware/auth.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { check, validationResult } from "express-validator";
+import { User } from '../../models/User.js';
 
-const User = require("../../models/User");
+const router = express.Router();
+
 
 // @route    GET api/auth
 // @desc     Test route
 // @access   Private
-router.get("/", auth, async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
@@ -77,4 +77,4 @@ router.post(
   }
 );
 
-module.exports = router;
+export default router;

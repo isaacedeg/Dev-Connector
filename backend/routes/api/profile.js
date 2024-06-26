@@ -1,18 +1,18 @@
-const express = require("express");
-const request = require("request");
-require("dotenv").config();
-const router = express.Router();
-const auth = require("../../middleware/auth");
-const { check, validationResult } = require("express-validator");
+import express from 'express';
+import { isAuthenticated } from '../../middleware/auth.js';
+import { Post } from '../../models/Post.js';
+import { User } from '../../models/User.js';
+import { Profile } from '../../models/Profile.js';
+import { check, validationResult } from "express-validator";
+import request from "request";
 
-const Profile = require("../../models/Profile");
-const User = require("../../models/User");
-const Post = require("../../models/Post");
+const router = express.Router();
+
 
 // @route    GET api/profile/me
 // @desc     Get current users profile
 // @access   Private
-router.get("/me", auth, async (req, res) => {
+router.get("/me", isAuthenticated, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       "user",
@@ -36,7 +36,7 @@ router.get("/me", auth, async (req, res) => {
 router.post(
   "/",
   [
-    auth,
+    isAuthenticated,
     [
       check("status", "Status is required").not().isEmpty(),
       check("skills", "Skills is required").not().isEmpty(),
@@ -147,7 +147,7 @@ router.get("/user/:user_id", async (req, res) => {
 // @route    DELETE api/profile
 // @desc     Delete profile, user & posts
 // @access   Private
-router.delete("/", auth, async (req, res) => {
+router.delete("/", isAuthenticated, async (req, res) => {
   try {
     // Remove users posts
     await Post.deleteMany({ user: req.user.id });
@@ -170,7 +170,7 @@ router.delete("/", auth, async (req, res) => {
 router.put(
   "/experience",
   [
-    auth,
+    isAuthenticated,
     [
       check("title", "Title is required").not().isEmpty(),
       check("company", "Company is required").not().isEmpty(),
@@ -214,7 +214,7 @@ router.put(
 // @route    DELETE api/profile/experience/:exp_id
 // @desc     Delete experience from profile
 // @access   Private
-router.delete("/experience/:exp_id", auth, async (req, res) => {
+router.delete("/experience/:exp_id", isAuthenticated, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
@@ -240,7 +240,7 @@ router.delete("/experience/:exp_id", auth, async (req, res) => {
 router.put(
   "/education",
   [
-    auth,
+    isAuthenticated,
     [
       check("school", "School is required").not().isEmpty(),
       check("degree", "Degree is required").not().isEmpty(),
@@ -285,7 +285,7 @@ router.put(
 // @route    DELETE api/profile/education/:edu_id
 // @desc     Delete education from profile
 // @access   Private
-router.delete("/education/:edu_id", auth, async (req, res) => {
+router.delete("/education/:edu_id", isAuthenticated, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
@@ -331,4 +331,4 @@ router.get("/github/:username", (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
