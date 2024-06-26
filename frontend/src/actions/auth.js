@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosDefault as axios } from "../utils/axios";
 import { setAlert } from "./alert";
 import {
   REGISTER_SUCCESS,

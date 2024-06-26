@@ -1,11 +1,13 @@
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 const Landing = ({ isAuthenticated }) => {
+
+  const location = useLocation()
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard" from={{state: location}}/>;
   }
   return (
     <section className="landing">
