@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require("cors");
 
 const connectDB = () => require("./config/db");
 
@@ -10,11 +9,7 @@ const app = express();
 // Connect Database
 connectDB();
 
-app.use(cors({
-    origin: 'https://dev-frontend-rho.vercel.app/',
-    methods: ["GET", "PUT", "POST", "DELETE"],
-    credentials: true,
-}))
+
 
 // Init Middleware: to get access to the request body
 app.use(express.json({ extended: false }));
