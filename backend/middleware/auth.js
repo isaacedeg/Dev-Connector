@@ -8,13 +8,6 @@ export const isAuthenticated = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ msg: "No token, authorization denied" });
   }
-  
-  if(!req.user){
-    return res.status(406).json({
-        success: false,
-        message: "Please log in",
-    });
-  }
 
   // Verify token
   try {
