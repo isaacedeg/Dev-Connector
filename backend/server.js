@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {urlencoded} from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -19,6 +19,8 @@ app.use(cors({
 // Init Middleware: to get access to the request body
 app.use(express.json({ extended: false }));
 
+app.use(urlencoded({ extended: true }));
+
 app.get("/", (req, res) => res.send("API Running"));
 
 // Define Routes
@@ -32,10 +34,7 @@ app.enable("trust proxy");
 const PORT = process.env.PORT;
 
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("MongoDB connected...");
   })
